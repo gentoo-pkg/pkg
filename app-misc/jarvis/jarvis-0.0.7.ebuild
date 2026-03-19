@@ -30,16 +30,10 @@ src_prepare() {
 }
 
 src_configure() {
-	local myCmakeArgs=(
+	local mycmakeargs=(
 		-DCMAKE_BUILD_TYPE=Release
-		-B build
-		-S .
 		)
-	cmake ${myCmakeArgs}
-}
-
-src_compile() {
-	make -C build || die "Compilation failed!"
+	cmake_src_configure
 }
 
 src_install() {
