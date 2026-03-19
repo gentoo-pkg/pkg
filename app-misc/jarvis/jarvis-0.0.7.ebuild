@@ -3,6 +3,8 @@
 
 EAPI=8
 
+inherit cmake
+
 DESCRIPTION="Jarvis"
 HOMEPAGE="https://github.com/dingjingmaster/jarvis"
 SRC_URI="https://github.com/dingjingmaster/jarvis/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
@@ -41,9 +43,10 @@ src_compile() {
 }
 
 src_install() {
-
+	elog "install..."
 }
 
 pkg_postinst() {
 	# 
+	elog "postinstall..."
 }
