@@ -23,24 +23,24 @@ S="${WORKDIR}/${P}"
 
 src_prepare() {
 	default
-
-	# 打补丁
-	
-	# 构建选项
 }
 
 src_configure() {
 	local mycmakeargs=(
 		-DCMAKE_BUILD_TYPE=Release
-		)
+	)
 	cmake_src_configure
+}
+
+src_compile() {
+	cmake_src_compile
 }
 
 src_install() {
 	elog "install..."
+	cmake_src_install
 }
 
 pkg_postinst() {
-	# 
 	elog "postinstall..."
 }
