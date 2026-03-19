@@ -1,6 +1,8 @@
 # Copyright 2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
+# clean → fetch → unpack → prepare → configure → compile → test → install
+
 EAPI=8
 
 inherit cmake
@@ -26,19 +28,27 @@ src_prepare() {
 }
 
 src_configure() {
+	local buildDir="${WORKDIR}/${P}-build"
+	mkdir -p ${buildDir}
+
+	cd ${buildDir} || die "Cannot enter build dir!"
+
 	local mycmakeargs=(
 		-DCMAKE_BUILD_TYPE=Release
 	)
-	cmake_src_configure
+
+	#
+	cmake "${S}" "${mycmakeargs[@]}" || "CMake configure failed!"
+	default
 }
 
 src_compile() {
-	cmake_src_compile
+	cd "${WORKDIR}/${P}-build" || die
+	make -j ${nproc} || die
 }
 
 src_install() {
 	elog "install..."
-	cmake_src_install
 }
 
 pkg_postinst() {
